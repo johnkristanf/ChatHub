@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include('partials/Head'); %>
+
+<body>
+
+    <p style="margin-left: 100px;">Username: <%= userData.username %></p>
+    <p style="margin-left: 100px;">Email: <%= userData.email %></p>
+    
+
+    <div class="ChatHubFriendsContainer">
+
+        <%- include('../Messages/partials/Sidebar'); %>
+
+        <%- include('partials/FriendsList'); %>
+
+        <%- include('partials/FriendsProfile'); %>
+
+
+        <%- include('../Messages/partials/modal/Logout'); %>
+
+        
+
+
+    </div>
+
+    
+
+    
+</body>
+
+<script src="/scripts/Interactive/FriendsCategoryBtn.js" ></script>
+
+<script src="/scripts/Interactive/LogoutModal.js"></script>
+
+
+<script src="/scripts/Request/get/SearchFriend.js"></script>
+
+<script src="/scripts/Request/get/FriendProfile.js"></script>
+
+<script src="/scripts/Request/post/AddFriend.js"></script>
+
+
+</html>
+

@@ -1,0 +1,97 @@
+<%- include('Head'); %>
+
+<a href="/">
+    <h3 id="BackToHomePage"><i class="fa-solid fa-circle-left"></i> Go Back To Home Page
+    </h3><br><br><br>
+    
+</a>
+
+<div class="container" id="container">
+
+    <div class="form-container sign-up-container">
+
+      <form action="#" method="POST" id="SignUpForm">
+        <h1>Create Account</h1><br>
+
+        <input type="text" name="SignUpFullName" placeholder="Full Name" />
+        <input type="text" name="SignUpUsername" placeholder="User Name" />
+        <input type="email" name="SignUpEmail" placeholder="Email" />
+        <input type="password" name="SignupPassword" placeholder="Password" /><br>
+
+        <label style="font-size: 12px;">Birthday</label>
+        <input type="date" name="BirthDay"/><br>
+
+
+        <label style="font-size: 12px;">Gender</label>
+
+        <div class="gender">
+
+          <div class="Female">
+            <h3>Female</h3>
+            <input type="checkbox" name="Female" value="Female" /><br>
+          </div>
+
+          <div class="Male">
+            <h3>Male</h3>
+            <input type="checkbox" name="Male" value="Male" /><br>
+          </div>
+
+        </div><br>
+       
+       
+
+        <button type="submit">Sign Up</button>
+        
+      </form>
+
+    </div>
+
+    <div class="form-container sign-in-container">
+
+      <form action="#" method="POST" id="LoginForm">
+
+        <h1>Sign in</h1>
+
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+
+        <span>or use your account</span>
+
+        <input type="text" name="LoginUsername" placeholder="Username" />
+        <input type="password" name="LoginPassword" placeholder="Password" />
+
+        <a href="/account/indentify">Forgot your password?</a>
+        <button type="submit">Sign In</button>
+
+      </form>
+
+    </div>
+
+    <div class="overlay-container">
+
+      <div class="overlay">
+
+        <div class="overlay-panel overlay-left">
+          <h1><i class="fa-solid fa-comment-dots"></i> ChatHub</h1>
+          <p>To keep connected with us please login with your personal info</p>
+          <button class="ghost" id="signIn">Sign In</button>
+        </div>
+
+        <div class="overlay-panel overlay-right">
+          <h1><i class="fa-solid fa-comment-dots"></i> ChatHub</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <button class="ghost" id="signUp">Sign Up</button>
+        </div>
+
+      </div>
+
+    </div>
+</div>
+
+<script src="/scripts/Request/post/SignUp.js"></script>
+<script src="/scripts/Request/post/Login.js"></script>
+
+<script src="/scripts/Interactive/AuthFormTransition.js"></script>

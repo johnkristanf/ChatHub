@@ -27,15 +27,27 @@ try {
                 if(Recipient){
 
                     const SenderInfo = await AccountModel.findById(senderId)
-                    .select('friends image fullname friendRequests');
+                    .select('friends image fullname friendRequests UserAdded');
 
 
                     if(SenderInfo) {
 
+                
                         if(AlreadySentFriendRequest(Recipient, socket, senderId, io)){
                             return;
 
                         } else { 
+
+                            console.log('SenderInfo:', SenderInfo);
+
+                            SenderInfo.UserAdded.push(recipientId);
+
+    
+                            await AccountModel.findByIdAndUpdate(senderId, {
+                                UserAdded: SenderInfo.UserAdded
+                            });
+                            
+    
 
                             const SenderData = {
                                 senderId: senderId,
@@ -50,7 +62,7 @@ try {
     
     
                             if (recipientSocket) {
-                                recipientSocket.emit('FriendRequestReceived', SenderData, senderId);
+                                recipientSocket.emit('FriendRequestReceived', SenderData, senderId, recipientId);
     
                             } else {
                                 console.log('Recipient is not online');
@@ -68,6 +80,42 @@ try {
                 }
                 
         });
+
+
+        socket.on('AcceptFriendRequest', async (senderId: string, recipientId: string) => {
+
+            try {
+                const sernderData = await AccountModel.findById(senderId).select('friends');
+                sernderData?.friends.push(recipientId);
+
+                await AccountModel.findByIdAndUpdate(senderId, {
+                    friends: sernderData?.friends
+
+                });
+
+
+                const recipientData = await AccountModel.findById(recipientId).select('friends');
+                recipientData?.friends.push(senderId);
+
+
+                await AccountModel.findByIdAndUpdate(recipientId, {
+                    friends: recipientData?.friends
+
+                    
+                });
+
+
+                socket.join(senderId);
+                io.to(senderId).emit('AcceptedRequestNotif', 'User Accepted')
+
+
+                
+            } catch (error) {
+                console.error(error);
+                throw error;
+            }
+            
+        })
 
 
         socket.on("disconnecting", () => {

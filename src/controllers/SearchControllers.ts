@@ -65,6 +65,7 @@ export const GetProfileController = async (request: any, response: any) => {
     
 }
 
+
 export const GetFriendRequestListController = async (request: any, response: any) => {
 
     try {
@@ -94,7 +95,7 @@ export const GetFriendRequestListController = async (request: any, response: any
         
         
                     const requestData = await AccountModel.find({ _id: { $in: SenderIdArrayMap } })
-                    .select('image fullname');
+                    .select('image fullname UserAdded');
         
             
                     if(requestData){
@@ -116,3 +117,57 @@ export const GetFriendRequestListController = async (request: any, response: any
     }
     
 }
+
+
+
+export const GetFriendsListIDController = async (request: any, response: any) => {
+
+    try {
+    
+        if(request.user.Authenticated()){
+
+            const listID = await AccountModel.find({ _id: request.user.id }).select('friends');
+
+            if(listID) response.status(200).send({
+                listID: listID
+            })
+
+
+
+        }
+        
+    } catch (error) {
+        console.error(error);
+        response.status(500).send('Error Getting Friends List')
+    }
+    
+}
+
+
+
+export const GetFriendsListController = async (request: any, response: any) => {
+
+    try {
+    
+        if(request.user.Authenticated()){
+
+            const { friendIDArray } = request.body;
+
+            const friendData = await AccountModel.find({ _id: { $in: friendIDArray } })
+            .select('image fullname email')
+
+            if(friendData) response.status(200).send({
+                friendData: friendData
+            })
+
+
+
+        }
+        
+    } catch (error) {
+        console.error(error);
+        response.status(500).send('Error Getting Friends List')
+    }
+    
+}
+

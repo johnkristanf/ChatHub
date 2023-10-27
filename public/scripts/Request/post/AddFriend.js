@@ -160,7 +160,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 
-const RenderFriendRequestList = (SenderData,FriendRequest, FriendRequestContainer) => {
+const RenderFriendRequestList = (SenderData, FriendRequest, FriendRequestContainer) => {
+
+    console.log('SenderData sa RenderRequest:', SenderData)
 
     let html = ''
     
@@ -179,7 +181,7 @@ const RenderFriendRequestList = (SenderData,FriendRequest, FriendRequestContaine
                 </div>
 
                 <div class="RequestBtn">
-                    <button id="ConfirmRequest">Confirm</button>
+                    <button onclick="AcceptFriendRequest('${data._id}', '${data.UserAdded}')" id="ConfirmRequest">Confirm</button>
                     <button id="DeleteRequest">Delete</button>
                 </div>    
                      
@@ -192,6 +194,34 @@ const RenderFriendRequestList = (SenderData,FriendRequest, FriendRequestContaine
     FriendRequest.innerHTML = html;   
     FriendRequestContainer.appendChild(FriendRequest);
 }
+
+
+
+const AcceptFriendRequest = async (senderId, recipientId) => {
+
+    try {
+
+        console.log(senderId);
+        console.log(recipientId);
+
+        
+
+        socket.emit('AcceptFriendRequest', senderId, recipientId);
+
+        socket.on('AcceptedRequestNotif', (message) => {
+            console.log(message)
+        })
+
+        
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+
+}
+
+
+
    
 
 

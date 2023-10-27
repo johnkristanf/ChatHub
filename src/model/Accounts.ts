@@ -71,6 +71,8 @@ const AccountSchema = new Schema({
 
     friends: [String],
 
+    UserAdded: [String],
+
 });
 
 

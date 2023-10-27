@@ -7,7 +7,9 @@ import {
     SearchFriendController, 
     GetProfileController,
     GetFriendRequestListController,
-    
+    GetFriendsListIDController,
+    GetFriendsListController
+
     } 
     
 from '../controllers/SearchControllers';
@@ -22,6 +24,14 @@ router.get('/get/profile/:user_id', JWT.ValidateToken, GetProfileController);
 
 
 router.get('/FriendRequestList/:SenderId',  JWT.ValidateToken, GetFriendRequestListController);
+
+
+router.get('/get/friendsID',  JWT.ValidateToken, GetFriendsListIDController);
+
+
+router.post('/get/friends/list',  JWT.ValidateToken, GetFriendsListController);
+
+
 
 
 

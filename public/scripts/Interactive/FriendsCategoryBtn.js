@@ -1,5 +1,5 @@
 const SearchFriends = document.querySelector('.SearchFriends');
-const Lists = document.querySelector('.Lists');
+const FriendListContainer = document.querySelector('.FriendListContainer');
 const FriendRequestContainer = document.querySelector('.FriendRequestContainer');
 const SearchListContainer = document.querySelector('.SearchListContainer');
 
@@ -9,13 +9,13 @@ const FriendList_Btn = () => {
     FriendRequestContainer.style.visibility = 'hidden';
     SearchListContainer.style.display = 'none';
 
-    Lists.style.display = 'block';
+    FriendListContainer.style.display = 'block';
 }
 
 const SearchFriends_Btn = () => {
    
 
-    Lists.style.display = 'none';
+    FriendListContainer.style.display = 'none';
     FriendRequestContainer.style.visibility = 'hidden';
 
     SearchListContainer.style.display = 'block';
@@ -25,7 +25,7 @@ const SearchFriends_Btn = () => {
 const FriendRequest_Btn = () => {
 
     SearchFriends.style.display = 'none';
-    Lists.style.display = 'none';
+    FriendListContainer.style.display = 'none';
     SearchListContainer.style.display = 'none';
 
     FriendRequestContainer.style.visibility = 'visible';

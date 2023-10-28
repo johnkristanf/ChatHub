@@ -66,12 +66,12 @@ const AccountSchema = new Schema({
         senderId: String,
         senderName: String,
         senderImage: String,
-        status: { type: String, default: 'pending' }, // 'pending', 'accepted', or 'rejected'
+        status: { type: String, default: 'pending' }, 
     }],
 
     friends: [String],
 
-    UserAdded: [String],
+    UserAdded: String,
 
 });
 
@@ -193,7 +193,7 @@ export default {
         try {
 
             const Profile = await AccountModel.find({ _id: user_id })
-            .select('image username fullname email birthday gender');
+            .select('image username fullname email birthday gender friends');
 
             if(Profile.length > 0) return Profile;
             

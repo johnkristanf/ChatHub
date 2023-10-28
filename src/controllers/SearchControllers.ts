@@ -12,8 +12,6 @@ export const SearchFriendController = async (request: any, response: any) => {
 
             const searchFriend = await Accounts.Search(fullname);
 
-            console.log('searchFriend:', searchFriend)
-
             if(searchFriend || searchFriend === undefined){
 
                 response.status(200).send({

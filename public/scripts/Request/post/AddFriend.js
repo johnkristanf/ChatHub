@@ -88,6 +88,8 @@ socket.on('FriendRequestReceived', async (SenderData, SenderId) => {
 
 function RenderFriendRequestUI(data) {
 
+    console.log('data gikan sa socket io:', data)
+
     const FriendRequestContainer = document.querySelector('.FriendRequestContainer');
     const FriendRequest = document.createElement('div');
     FriendRequest.classList.add('FriendRequest');
@@ -107,8 +109,8 @@ function RenderFriendRequestUI(data) {
                 </div>
 
                 <div class="RequestBtn">
-                    <button id="ConfirmRequest">Confirm</button>
-                    <button id="DeleteRequest">Delete</button>
+                <button onclick="AcceptFriendRequest('${data.senderId}', '${data.UserAdded}')" id="ConfirmRequest">Confirm</button>
+                <button id="DeleteRequest">Delete</button>
                 </div>    
                      
         </div>`;
@@ -201,17 +203,7 @@ const AcceptFriendRequest = async (senderId, recipientId) => {
 
     try {
 
-        console.log(senderId);
-        console.log(recipientId);
-
-        
-
         socket.emit('AcceptFriendRequest', senderId, recipientId);
-
-        socket.on('AcceptedRequestNotif', (message) => {
-            console.log(message)
-        })
-
         
     } catch (error) {
         console.error(error);
@@ -219,6 +211,17 @@ const AcceptFriendRequest = async (senderId, recipientId) => {
     }
 
 }
+
+
+socket.on('AcceptedRequestNotif', (message) => {
+    console.log(message)
+})
+
+
+socket.on('AlreadyFriend', (message) => {
+    console.log(message)
+
+})
 
 
 

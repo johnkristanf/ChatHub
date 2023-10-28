@@ -39,12 +39,9 @@ try {
                         } else { 
 
                             console.log('SenderInfo:', SenderInfo);
-
-                            SenderInfo.UserAdded.push(recipientId);
-
     
                             await AccountModel.findByIdAndUpdate(senderId, {
-                                UserAdded: SenderInfo.UserAdded
+                                UserAdded: recipientId
                             });
                             
     
@@ -52,7 +49,8 @@ try {
                             const SenderData = {
                                 senderId: senderId,
                                 senderName:  SenderInfo.fullname,
-                                senderImage: SenderInfo.image
+                                senderImage: SenderInfo.image,
+                                UserAdded: SenderInfo.UserAdded
                             }
     
                             updateRecipientFriendRequestList(Recipient, SenderData, recipientId);
@@ -85,7 +83,52 @@ try {
         socket.on('AcceptFriendRequest', async (senderId: string, recipientId: string) => {
 
             try {
+
                 const sernderData = await AccountModel.findById(senderId).select('friends');
+
+                const recipientData = await AccountModel.findById(recipientId).select('friends friendRequests');
+
+               
+
+                if(sernderData){
+
+                    console.log('sernderData:', sernderData);
+                    console.log('sernderData.friends:', sernderData.friends);
+                    
+
+                    for(const data of sernderData.friends){
+
+                        if(data === recipientId){
+                            const RecipientSocket = userSockets.get(recipientId);
+
+                            RecipientSocket.emit('AlreadyFriend', { AlreadyFriend: true });
+
+                            return;
+                        }
+
+                    }
+
+                }
+
+
+                if(recipientData){
+
+                    for(const data of recipientData.friends){
+
+                        if(data === senderId){
+
+                            const RecipientSocket = userSockets.get(recipientId);
+
+                            RecipientSocket.emit('AlreadyFriend', { AlreadyFriend: true });
+
+                            return;
+                        }
+
+                    }
+
+                }
+
+
                 sernderData?.friends.push(recipientId);
 
                 await AccountModel.findByIdAndUpdate(senderId, {
@@ -94,19 +137,22 @@ try {
                 });
 
 
-                const recipientData = await AccountModel.findById(recipientId).select('friends');
+              
+
                 recipientData?.friends.push(senderId);
 
-
                 await AccountModel.findByIdAndUpdate(recipientId, {
-                    friends: recipientData?.friends
+                    friends: recipientData?.friends,
+
+                    friendRequests: recipientData?.friendRequests.filter(request => request.senderId !== senderId)
 
                     
                 });
 
 
-                socket.join(senderId);
-                io.to(senderId).emit('AcceptedRequestNotif', 'User Accepted')
+                const SenderSocket = userSockets.get(senderId);
+
+                SenderSocket.emit('AcceptedRequestNotif', 'User Accepted')
 
 
                 

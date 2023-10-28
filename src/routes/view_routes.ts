@@ -2,6 +2,8 @@ import express from 'express';
 
 import JWT from '../middleware/JWT';
 
+import { AccountModel } from '../model/Accounts';
+
 const router = express.Router();
 
 
@@ -88,6 +90,31 @@ router.get('/account/connect', JWT.ValidateToken, async (request: any, response:
             };
     
             response.status(200).render('MainPage/Friends/FriendsContainer', { userData });
+        }
+
+        
+    } catch (error) {
+        console.error(error);
+        response.status(500).send('Error Retrieving User Profile');
+    }
+    
+
+});
+
+
+
+router.get('/account/profile', JWT.ValidateToken, async (request: any, response: any) => {
+    
+    try {
+
+        if(request.user.Authenticated()){
+
+            const { id } = request.user;
+    
+            const UserProfile = await AccountModel.findById(id)
+            .select('image fullname gender birthday email username');
+           
+            response.status(200).render('MainPage/Settings/SettingsContainer', { UserProfile });
         }
 
         

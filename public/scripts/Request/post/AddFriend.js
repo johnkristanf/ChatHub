@@ -7,20 +7,7 @@ socket.on('connect', () => {
 });
    
 
-const UserID = async () => {
 
-    try {
-        
-        const response = await axios.get('/ActiveUserData');
-        const { user_id } = response.data;
-
-        return user_id
-        
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
 
 
 const emitUserId = async () => {
@@ -140,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const response = await axios.get(`/FriendRequestList/${storedSenderId}`);
         const { SenderData } = response.data;
 
-        console.log('SenderData from axios', SenderData)
+        console.log('Mga nag Friend Request wa gi accept', SenderData)
 
        
         const FriendRequestContainer = document.querySelector('.FriendRequestContainer');
@@ -164,7 +151,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 const RenderFriendRequestList = (SenderData, FriendRequest, FriendRequestContainer) => {
 
-    console.log('SenderData sa RenderRequest:', SenderData)
 
     let html = ''
     

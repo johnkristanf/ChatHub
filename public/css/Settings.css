@@ -37,7 +37,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 30px 0 0 15px;
+    margin: 30px 15px 0 15px;
 }
 
 .SidebarHeaderMessage h1{
@@ -72,6 +72,7 @@
     height: 100%;
 }
 
+
 #UserProfile h1{
     font-size: 40px;
 }
@@ -79,12 +80,12 @@
 .ProfileContainer{
     width: 90%;
     background: rgb(29,47,10);
-background: linear-gradient(90deg, rgba(29,47,10,1) 0%, rgba(140,93,200,1) 0%, rgba(148,187,233,1) 100%);
+    background: linear-gradient(90deg, rgba(29,47,10,1) 0%, rgba(140,93,200,1) 0%, rgba(148,187,233,1) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: 100%;
+    height: 102%;
     border-radius: 15px;
     padding: 20px;
     gap: 20px;
@@ -111,6 +112,10 @@ background: linear-gradient(90deg, rgba(29,47,10,1) 0%, rgba(140,93,200,1) 0%, r
     padding: 0 20px;
 }
 
+.ProfileInfoUpdateable label{
+    font-size: 20px;
+}
+
 .ProfilePicture, .FullName , .UserName , .Email , .Password , .Birthday-Gender{
     background-color: #fff;
     padding: 15px 20px 15px 20px;
@@ -119,4 +124,324 @@ background: linear-gradient(90deg, rgba(29,47,10,1) 0%, rgba(140,93,200,1) 0%, r
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    cursor: pointer;
 }
+
+
+.ProfilePicture:hover, .FullName:hover , .UserName:hover , .Email:hover , .Password:hover , .Birthday-Gender:hover{
+    opacity: .75;
+
+}
+
+
+.ProfilePictureFormContainer{
+    background-color: #fff;
+    width: 100%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+}
+
+.ProfilePictureInsideForm{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+#ProfilePictureForm{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 100%;
+}
+
+#ProfilePictureForm input{
+    padding: 8px;
+    border-bottom: 1px solid #121212;
+}
+
+#ProfilePictureForm input:focus{
+    outline: none;
+
+}
+
+#ProfilePictureFormSaveChanges{
+    margin-top: 50px;
+    background: dodgerblue;
+    color: #fff;
+    border-radius: 100px;
+    padding: 8px;
+}
+
+
+/* Hide the default file input */
+.hidden-file-input {
+    display: none;
+  }
+  
+  /* Style the custom file upload label */
+  .custom-file-upload {
+    background-color: #f1f1f1;
+    color: #121212;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  /* Change the label appearance when hovering */
+  .custom-file-upload:hover {
+    opacity: .75;
+  }
+  
+
+
+
+.FullNameFormContainer{
+    background-color: #fff;
+    width: 100%;
+    border-radius: 15px;
+
+}
+
+#FullNameForm{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+#FullNameForm input{
+    padding: 8px;
+    border-bottom: 1px solid #121212;
+}
+
+#FullNameForm input:focus{
+    outline: none;
+
+}
+
+#FullNameFormSaveChanges{
+    margin-top: 50px;
+    background: dodgerblue;
+    color: #fff;
+    border-radius: 100px;
+    padding: 8px;
+}
+
+
+.UserNameFormContainer{
+    background-color: #fff;
+    width: 100%;
+    border-radius: 15px;
+
+}
+
+#UserNameForm{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+#UserNameForm input{
+    padding: 8px;
+    border-bottom: 1px solid #121212;
+}
+
+#UserNameForm input:focus{
+    outline: none;
+
+}
+
+#UserNameFormSaveChanges{
+    margin-top: 50px;
+    background: dodgerblue;
+    color: #fff;
+    border-radius: 100px;
+    padding: 8px;
+}
+
+
+
+.EmailFormContainer{
+    background-color: #fff;
+    width: 100%;
+    border-radius: 15px;
+
+}
+
+#EmailForm{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+#EmailForm input{
+    padding: 8px;
+    border-bottom: 1px solid #121212;
+}
+
+#EmailForm input:focus{
+    outline: none;
+
+}
+
+#EmailFormSaveChanges{
+    margin-top: 50px;
+    background: dodgerblue;
+    color: #fff;
+    border-radius: 100px;
+    padding: 8px;
+}
+
+
+
+
+.PasswordFormContainer{
+    background-color: #fff;
+    width: 100%;
+    border-radius: 15px;
+
+}
+
+#PasswordForm{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+#PasswordForm input{
+    padding: 8px;
+    border-bottom: 1px solid #121212;
+}
+
+#PasswordForm input:focus{
+    outline: none;
+
+}
+
+#PasswordFormSaveChanges{
+    margin-top: 50px;
+    background: dodgerblue;
+    color: #fff;
+    border-radius: 100px;
+    padding: 8px;
+}
+
+
+
+.Bday-GenderFormContainer{
+    background-color: #fff;
+    width: 100%;
+    border-radius: 15px;
+
+}
+
+#Bday-GenderForm{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+#Bday-GenderForm input{
+    padding: 8px;
+    border-bottom: 1px solid #121212;
+}
+
+#Bday-GenderForm input:focus{
+    outline: none;
+
+}
+
+#Bday-GenderFormSaveChanges{
+    margin-top: 50px;
+    background: dodgerblue;
+    color: #fff;
+    border-radius: 100px;
+    padding: 8px;
+}
+
+
+#UserBirthDay {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+  }
+  
+  /* Style the date picker arrow */
+  #UserBirthDay::-webkit-calendar-picker-indicator {
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+ 
+  
+  /* Style the date input when it's focused */
+  #UserBirthDay:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+
+.GenderInputContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px 0 20px 0;
+}  
+
+
+.GenderInputContainer label{
+    font-size: 25px;
+}
+  
+
+
+.ProfilePictureFormContainer, .Bday-GenderFormContainer, .PasswordFormContainer, 
+.PasswordFormContainer, .FullNameFormContainer, .UserNameFormContainer, .EmailFormContainer{
+    display: none;
+}
+
+.FullNameFormContainer .fa-chevron-left, .UserNameFormContainer .fa-chevron-left, 
+.EmailFormContainer .fa-chevron-left, .PasswordFormContainer .fa-chevron-left, .Bday-GenderFormContainer .fa-chevron-left{
+    font-size: 20px;
+    margin: 20px 0 20px 8px;
+    padding: 10px;
+}
+
+
+.ProfilePictureFormContainer .fa-chevron-left{
+    font-size: 20px;
+    padding: 10px;
+}
+
+.ProfilePictureFormContainer .fa-chevron-left:hover{
+    background-color: gray;
+    border-radius: 100%;
+    color: #fff;
+    cursor: pointer;
+    
+}
+
+
+
+.FullNameFormContainer .fa-chevron-left:hover, .UserNameFormContainer .fa-chevron-left:hover, 
+.EmailFormContainer .fa-chevron-left:hover, .PasswordFormContainer .fa-chevron-left:hover, .Bday-GenderFormContainer .fa-chevron-left:hover{
+    background-color: gray;
+    border-radius: 100%;
+    color: #fff;
+    cursor: pointer;
+    
+}
+
+
+

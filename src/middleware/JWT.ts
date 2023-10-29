@@ -15,7 +15,8 @@ export default  {
               { 
                 userId: user._id, 
                 username: user.username,  
-                email: user.email
+                email: user.email,
+                fullname: user.fullname
             
               }, '6541f70099bd40020c92e770cbb8b553e9a3797fe0bebbe292c3e8493450dcd2d1fe19f182e62dcf34b3f8f534a9889ec470c8d2fe3cd1d2e567cfa583e34b4f');
 
@@ -50,6 +51,7 @@ export default  {
                     id: ValidToken.userId, 
                     username: ValidToken.username,
                     email: ValidToken.email,
+                    fullname: ValidToken.fullname,
                     Authenticated: (): boolean => { return true }
                 };
            

@@ -152,11 +152,12 @@ export const GetFriendsListController = async (request: any, response: any) => {
             const { friendIDArray } = request.body;
 
             const friendData = await AccountModel.find({ _id: { $in: friendIDArray } })
-            .select('image fullname email')
+            .select('image fullname email birthday gender username')
 
             if(friendData) response.status(200).send({
                 friendData: friendData
             })
+
 
 
 

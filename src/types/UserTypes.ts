@@ -14,6 +14,7 @@ export type LoginCredentials = {
     _id: Object,
     username: string,
     email: string,
+    fullname: string,
     password: string,
     birthday: string,
     gender: string

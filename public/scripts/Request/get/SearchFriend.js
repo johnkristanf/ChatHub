@@ -27,13 +27,14 @@ const SearchFriend = () => {
       } else {
 
         if(noSearchResultMessage) {
-             noSearchResultMessage.remove();
-             noSearchResultMessage = null;
+
+            noSearchResultMessage.remove();
+            noSearchResultMessage = null;
  
         }
  
     
-        RenderUserProfile(searchResponseData, SearchListContainer);
+        RenderUserProfile(searchResponseData, SearchListContainer,SearchFriendsForm);
       
       }
 
@@ -81,7 +82,7 @@ const SearchResponseUndefined = (searchResponseData, SearchListContainer, Search
 }
 
 
-const RenderUserProfile = (searchResponseData, SearchListContainer) => {
+const RenderUserProfile = (searchResponseData, SearchListContainer, SearchFriendsForm) => {
 
 
   for (const display of searchResponseData) {
@@ -117,6 +118,13 @@ const RenderUserProfile = (searchResponseData, SearchListContainer) => {
       SearchListContainer.removeChild(removedEntry);
 
     }
+
+
+    const h1Element = SearchFriendsForm.querySelector("h1");
+
+      if (h1Element) {
+          h1Element.remove();
+      }
 
   }
 

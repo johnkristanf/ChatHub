@@ -81,15 +81,8 @@ router.get('/account/connect', JWT.ValidateToken, async (request: any, response:
     try {
 
         if(request.user.Authenticated()){
-
-            const { username, email } = request.user;
     
-            const userData = {
-                username: username,
-                email: email,
-            };
-    
-            response.status(200).render('MainPage/Friends/FriendsContainer', { userData });
+            response.status(200).render('MainPage/Friends/FriendsContainer');
         }
 
         

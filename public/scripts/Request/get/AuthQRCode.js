@@ -5,8 +5,8 @@ const GetQrCode = async () => {
         let qrCodeContainer = document.querySelector('#qrCodeContainer');
 
         const response = await axios.get('/auth/qrcode');
-        console.log(response);
 
+        
         if(response){
             qrCodeContainer.src = response.data.qrCode;
         }

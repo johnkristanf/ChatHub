@@ -17,51 +17,229 @@
 
                 <div class="ProfileInfoUpdateable">
 
-                        <div class="ProfilePicture">
+
+            <!---------------------------PROFILE PICTURE FORM--------------------------- -->
+
+                    <div class="ProfilePictureFormContainer">
+
+                        <i onclick="HideProfilePictureForm()" style="position: absolute; top: 3%; left: 3%;" class="fa-solid fa-chevron-left"></i>
+
+                        <div class="ProfilePictureInsideForm">
+
+                            <br><img src="/img/user_image.png" alt="">
+
+                        </div>
+                        
+
+                        <form action="#" method="post" id="ProfilePictureForm" enctype="multipart/form-data">
+
+                            <label for="fileInput" class="custom-file-upload">
+                                <i class="fa-solid fa-plus"></i> Upload New Photo </label>
+
+                              <input type="file" id="fileInput" name="ProfilePicture" class="hidden-file-input">
+
+                            <button type="submit" disabled id="ProfilePictureFormSaveChanges">Save Changes</button>
+
+                        </form>
+
+                    </div>
+
+
+
+            <!---------------------------FULL NAME FORM--------------------------- -->    
+
+                    <div class="FullNameFormContainer">
+
+                        <i onclick="HideFullnameForm()" class="fa-solid fa-chevron-left"></i>
+
+                        <form action="#" method="post" id="FullNameForm">
+
+                            <label style="margin-bottom: 10px;">Full Name</label>
+                            <input type="text" name="FullName" id="FullNameInput" value="<%= UserProfile.fullname %>">
+
+                            <button type="submit" disabled id="FullNameFormSaveChanges">Save Changes</button>
+
+                        </form>
+
+                    </div>
+
+                    
+            <!---------------------------USERNAME FORM--------------------------- -->
+
+                    <div class="UserNameFormContainer">
+
+                        <i class="fa-solid fa-chevron-left" onclick="HideUsernameForm()"></i>
+
+                        <form action="#" method="post" id="UserNameForm">
+
+                            <label style="margin-bottom: 10px;">User Name</label>
+                            <input type="text" name="UserName" id="UserNameInput" value="<%= UserProfile.username %>">
+
+                            <button type="submit" disabled id="UserNameFormSaveChanges">Save Changes</button>
+
+                        </form>
+
+                    </div>
+
+
+
+            <!---------------------------EMAIL FORM--------------------------- -->
+
+                    <div class="EmailFormContainer">
+
+                        <i class="fa-solid fa-chevron-left" onclick="HideEmailForm()"></i>
+
+                        <form action="#" method="post" id="EmailForm">
+
+                            <label style="margin-bottom: 10px;">Email</label>
+                            <input type="email" name="Email" id="EmailInput" value="<%= UserProfile.email %>">
+
+                            <button type="submit" disabled id="EmailFormSaveChanges">Save Changes</button>
+
+                        </form>
+
+                    </div>
+
+
+
+            <!---------------------------PASSWORD FORM--------------------------- -->
+
+                    <div class="PasswordFormContainer">
+
+                        <i class="fa-solid fa-chevron-left" onclick="HidePasswordForm()"></i>
+
+                        <form action="#" method="post" id="PasswordForm">
+
+                            <label style="margin-bottom: 10px;">Current Password</label>
+                            <input type="password" name="CurrentPassword" id="CurrentPassword" placeholder="Enter Current Password"><br>
+
+                            <label style="margin-bottom: 10px;">New Password</label>
+                            <input type="password" name="NewPassword" id="NewPassword" placeholder="Enter New Password">
+
+                            <button type="submit" disabled id="PasswordFormSaveChanges">Save Changes</button>
+
+                        </form>
+
+
+                    </div>
+
+
+
+            <!---------------------------BIRTHDAY AND GENDER FORM--------------------------- -->
+
+                    <div class="Bday-GenderFormContainer">
+
+                        <i class="fa-solid fa-chevron-left" onclick="HideBday_GenderForm()"></i>
+
+                        <form action="#" method="post" id="Bday-GenderForm">
+
+                            <label>Gender</label>
+
+                            <div class="GenderInputContainer">
+
+                                <div class="GenderInputMale">
+
+                                    <label>Male</label>
+                                    <input type="checkbox" id="Male" name="GenderMale" value="Male"><br>
+    
+                                </div>
+    
+                                <div class="GenderInputFemale">
+    
+                                    <label>Female</label>
+                                    <input type="checkbox" id="Female" name="GenderFeMale" value="Female"><br>
+    
+                                </div>
+
+                            </div>
+                           
+                           
+
+                            <label style="margin-bottom: 10px;">Birthday</label>
+                            <input type="date" name="UserBirthDay" id="UserBirthDay">
+
+                            <button type="submit" disabled id="Bday-GenderFormSaveChanges">Save Changes</button>
+
+                        </form>
+
+                    </div>
+ 
+
+
+            <!---------------------------UPDATEABLE BUTTONS--------------------------- -->
+
+                    <div class="UpdateableBtnContainer">
+
+                        <div class="ProfilePicture" onclick="ShowProfilePictureForm()">
                             <h1 style="font-size: 20px;">Profile Picture</h1>
 
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
 
-                        <div class="FullName">
+
+                        <div class="FullName" onclick="ShowFullnameForm()">
                             <h1 style="font-size: 20px;">Full Name</h1>
 
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
 
 
-                        <div class="UserName">
+
+                        <div class="UserName" onclick="ShowUsernameForm()">
                             <h1 style="font-size: 20px;">User Name</h1>
 
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
 
 
-                        <div class="Email">
+
+                        <div class="Email" onclick="ShowEmailForm()">
                             <h1 style="font-size: 20px;">Email</h1>
 
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
 
 
-                        <div class="Password">
+
+                        <div class="Password" onclick="ShowPasswordForm()">
                             <h1 style="font-size: 20px;">Password</h1>
 
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
 
 
-                        <div class="Birthday-Gender">
+
+                        <div class="Birthday-Gender" onclick="ShowBday_GenderForm()">
                             <h1 style="font-size: 20px;">Birthday & Gender</h1>
 
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
+
+
+                    </div>
+                       
+
+
+                    
 
                 </div>    
 
         </div>
 
 
-           
-
 </section>
+
+<script src="/scripts/Interactive/ProfileUpdateableTransition.js"></script>
+
+
+<script src="/scripts/Request/put/ProfilePicture.js"></script>
+
+<script src="/scripts/Request/put/FullName.js"></script>
+
+<script src="/scripts/Request/put/UserName.js"></script>
+
+<script src="/scripts/Request/put/Email.js"></script>
+
+<script src="/scripts/Request/put/Password.js"></script>
+
+<script src="/scripts/Request/put/Bday_Gender.js"></script>

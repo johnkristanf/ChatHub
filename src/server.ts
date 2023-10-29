@@ -12,13 +12,15 @@ import template from './middleware/template';
 import view_routes from './routes/view_routes';
 import auth_routes from './routes/auth_routes';
 import search_routes from './routes/search_routes';
-import recover_routes from './routes/recover_routes'
+import recover_routes from './routes/recover_routes';
+import profile_routes from './routes/profile_routes';
 
 import { FriendRequestSocket } from './middleware/socket/FriendRequest';
 
 
 const app = express();
 const server = http.createServer(app);
+
 
 // KANANG CORS ORIGIN MA GAMIT NMO NA PAG MAG DEPLOY NAKAS VERCEL 
 // ORIGIN PASABOT ANA DOMAIN SA CLIENT SIDE KAY LAHI BAYAG DOMAIN ANG 
@@ -38,7 +40,7 @@ StaticFiles(app, express);
 template(app);
 
 
-
+// SOCKET
 FriendRequestSocket(io)
 
 
@@ -47,6 +49,7 @@ app.use(view_routes);
 app.use(auth_routes);
 app.use(search_routes);
 app.use(recover_routes);
+app.use(profile_routes);
 
 
 

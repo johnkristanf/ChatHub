@@ -91,9 +91,6 @@ try {
                
 
                 if(sernderData){
-
-                    console.log('sernderData:', sernderData);
-                    console.log('sernderData.friends:', sernderData.friends);
                     
 
                     for(const data of sernderData.friends){
@@ -115,7 +112,7 @@ try {
 
                     for(const data of recipientData.friends){
 
-                        if(data === senderId){
+                        if(data === recipientId){
 
                             const RecipientSocket = userSockets.get(recipientId);
 

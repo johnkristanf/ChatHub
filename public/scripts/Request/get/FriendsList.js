@@ -5,7 +5,6 @@ const getFriendsList = async () => {
         const response = await axios.get('/get/friendsID');
         const { listID } = response.data
 
-        console.log(response.data);
 
         for(const data of listID){
 
@@ -14,8 +13,6 @@ const getFriendsList = async () => {
             });
 
             const { friendData } = getListResponse.data;
-
-            console.log(getListResponse.data);
 
             RenderFriendListUI(friendData);
 
@@ -34,6 +31,8 @@ getFriendsList();
 
 const RenderFriendListUI = (friendData) => {
 
+    console.log('friendDatdfsdfa:', friendData)
+
     const FriendListContainer = document.querySelector('.FriendListContainer');
 
     const FriendList = document.createElement('div');
@@ -42,6 +41,8 @@ const RenderFriendListUI = (friendData) => {
     let html = ''
     
     for (const data of friendData) {
+
+        console.log('data:', data)
 
         const SenderImage = data.image !== 'NoImgProvided' ? data.image : '/img/user_image.png';
 
@@ -56,15 +57,27 @@ const RenderFriendListUI = (friendData) => {
                 </div>
 
                 <div class="RequestBtn">
-                    <button id = "MessageBtn" >Message</button>
+                    <button  style="display: flex; align-items: center; gap: 7px;" id = "MessageBtn"><i class="fa-solid fa-message"></i>Message</button>
+
+                    <button  style="display: flex; align-items: center; gap: 7px;"  id = "UnfriendBtn"><i class="fa-solid fa-user-xmark"></i> Unfriend</button>
                 </div>    
                      
         </div>`;
 
-      
+
+        FriendList.innerHTML = html;   
+        FriendListContainer.appendChild(FriendList);
+
+    
 
     }
 
-    FriendList.innerHTML = html;   
-    FriendListContainer.appendChild(FriendList);
+    document.querySelector('.htmlContainer').addEventListener('click', () => {
+        RenderAlreadyFriendProfile(friendData)
+    })
+
+   
+   
 }
+
+

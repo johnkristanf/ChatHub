@@ -19,6 +19,8 @@ const SearchFriend = () => {
       const response = await axios.get(`/search/friend/${fullname}`);
       const { searchResponseData } = response.data;
 
+      console.log('searchResponseData:', searchResponseData)
+
       
 
       if(SearchResponseUndefined(searchResponseData, SearchListContainer, SearchFriendsForm)){
@@ -99,10 +101,10 @@ const RenderUserProfile = (searchResponseData, SearchListContainer, SearchFriend
 
 
 
-    const image = display.image !== 'NoImgProvided' ? display.image : '/img/user_image.png';
+    const image = display.image !== 'NoImgProvided' ? `/img/userImages/${display.image}` : '/img/user_image.png';
 
     searchListItem.innerHTML = `
-      <h2><img src="${image}"></h2>
+      <img src="${image}">
 
       <div class="NamesData">
         <h1>${display.fullname}</h1>

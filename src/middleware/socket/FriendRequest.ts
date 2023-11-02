@@ -27,7 +27,7 @@ try {
                 if(Recipient){
 
                     const SenderInfo = await AccountModel.findById(senderId)
-                    .select('friends image fullname friendRequests UserAdded');
+                    .select('friends image fullname friendRequests');
 
 
                     if(SenderInfo) {
@@ -38,19 +38,12 @@ try {
 
                         } else { 
 
-                            console.log('SenderInfo:', SenderInfo);
     
-                            await AccountModel.findByIdAndUpdate(senderId, {
-                                UserAdded: recipientId
-                            });
-                            
-    
-
                             const SenderData = {
                                 senderId: senderId,
                                 senderName:  SenderInfo.fullname,
                                 senderImage: SenderInfo.image,
-                                UserAdded: SenderInfo.UserAdded
+                                UserAdded: recipientId
                             }
     
                             updateRecipientFriendRequestList(Recipient, SenderData, recipientId);
@@ -60,7 +53,7 @@ try {
     
     
                             if (recipientSocket) {
-                                recipientSocket.emit('FriendRequestReceived', SenderData, senderId, recipientId);
+                                recipientSocket.emit('FriendRequestReceived', SenderData, recipientId);
     
                             } else {
                                 console.log('Recipient is not online');
@@ -225,7 +218,7 @@ const updateRecipientFriendRequestList = async (Recipient: any, SenderDataObj: S
 
         const { senderId, senderName, senderImage } = SenderDataObj;
 
-        Recipient.friendRequests.push({ senderId, senderName, senderImage, status: 'pending' });
+        Recipient.friendRequests.push({ senderId, senderName, senderImage, status: 'pending', UserAdded: recipientId });
 
                         
         await AccountModel.updateOne({ _id: recipientId }, 

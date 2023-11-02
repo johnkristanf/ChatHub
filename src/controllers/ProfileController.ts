@@ -9,14 +9,13 @@ export const UpdateProfilePictureController = async (request: any, response: any
 
         if(request.user.Authenticated()){
 
-            console.log('request.body:', request.body)
+            console.log('request.file:', request.file)
 
-            const { ProfilePicture } = request.body;
+            const { filename, size } = request.file
+
             const { id } = request.user;
 
-            console.log('ProfilePicture:', ProfilePicture)
-
-            const updated = await AccountModel.findByIdAndUpdate(id, { image: ProfilePicture });
+            const updated = await AccountModel.findByIdAndUpdate(id, { image: filename, imageSize: size });
 
             if(updated){
                 response.status(200).send({

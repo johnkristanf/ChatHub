@@ -16,6 +16,7 @@ import recover_routes from './routes/recover_routes';
 import profile_routes from './routes/profile_routes';
 
 import { FriendRequestSocket } from './middleware/socket/FriendRequest';
+import { SendMessage } from './middleware/socket/SendMessage';
 
 
 const app = express();
@@ -40,8 +41,10 @@ StaticFiles(app, express);
 template(app);
 
 
+
 // SOCKET
 FriendRequestSocket(io)
+SendMessage(io);
 
 
 // ROUTES

@@ -23,7 +23,7 @@ router.get('/search/friend/:fullname', JWT.ValidateToken,  SearchFriendControlle
 router.get('/get/profile/:user_id', JWT.ValidateToken, GetProfileController);
 
 
-router.get('/FriendRequestList/:SenderId',  JWT.ValidateToken, GetFriendRequestListController);
+router.get('/get/FriendRequestList',  JWT.ValidateToken, GetFriendRequestListController);
 
 
 router.get('/get/friendsID',  JWT.ValidateToken, GetFriendsListIDController);

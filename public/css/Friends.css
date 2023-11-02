@@ -295,6 +295,7 @@
   margin-bottom: 40px;
   padding: 15px 0 15px 15px;
   border-radius: 15px;
+  gap: 5rem;
 }
 
 .SearchList:hover{
@@ -303,7 +304,7 @@
 }
 
 .SearchList img{
-  width: 50%;
+  width: 20%;
   border-radius: 100%;
   
 }
@@ -590,18 +591,25 @@
   border-radius: 10px;
 }
 
+#MessageBtn:hover, #UnfriendBtn:hover{
+  opacity: .75;
+}
+
+#MessageBtn:focus, #UnfriendBtn:focus{
+  outline: none;
+}
+
+
 #UnfriendBtn{
   background-color: #121212;
   color: #fff;
   border-radius: 10px;
 }
 
-.htmlContainer{
-  padding: 10px;
-  border-radius: 15px;
-}
 
-.htmlContainer:hover{
-  background-color: gray;
-  cursor: pointer;
-}
+
+
+
+
+
+

@@ -31,7 +31,7 @@ getFriendsList();
 
 const RenderFriendListUI = (friendData) => {
 
-    console.log('friendDatdfsdfa:', friendData)
+    console.log('friendData:', friendData)
 
     const FriendListContainer = document.querySelector('.FriendListContainer');
 
@@ -42,9 +42,7 @@ const RenderFriendListUI = (friendData) => {
     
     for (const data of friendData) {
 
-        console.log('data:', data)
-
-        const SenderImage = data.image !== 'NoImgProvided' ? data.image : '/img/user_image.png';
+        const SenderImage = data.image !== 'NoImgProvided' ? `/img/userImages/${data.image}` : '/img/user_image.png';
 
         html += `
 
@@ -57,9 +55,9 @@ const RenderFriendListUI = (friendData) => {
                 </div>
 
                 <div class="RequestBtn">
-                    <button  style="display: flex; align-items: center; gap: 7px;" id = "MessageBtn"><i class="fa-solid fa-message"></i>Message</button>
+                    <button style="display: flex; align-items: center; gap: 7px;" id = "MessageBtn"><i class="fa-solid fa-user"></i> Profile </button>
 
-                    <button  style="display: flex; align-items: center; gap: 7px;"  id = "UnfriendBtn"><i class="fa-solid fa-user-xmark"></i> Unfriend</button>
+                    <button style="display: flex; align-items: center; gap: 7px;"  id = "UnfriendBtn"><i class="fa-solid fa-user-xmark"></i> Unfriend</button>
                 </div>    
                      
         </div>`;
@@ -72,12 +70,9 @@ const RenderFriendListUI = (friendData) => {
 
     }
 
-    document.querySelector('.htmlContainer').addEventListener('click', () => {
-        RenderAlreadyFriendProfile(friendData)
-    })
+   
 
-   
-   
+
 }
 
 

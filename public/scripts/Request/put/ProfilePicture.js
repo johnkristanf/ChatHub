@@ -32,15 +32,12 @@ fileInput.addEventListener('change', () => {
 ProfilePictureForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  alertify.set('notifier', 'position', 'top-right');
+    alertify.set('notifier', 'position', 'top-right');
 
-
-    console.log('fileInput.files:', fileInput.files[0])
 
     const formdata = new FormData();
     formdata.append('ProfilePicture', fileInput.files[0]);
 
-    console.log('formdata:', formdata)
   
     const response = await axios.put('/update/profile_picture', formdata, 
         {

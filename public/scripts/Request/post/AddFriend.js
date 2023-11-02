@@ -6,7 +6,20 @@ socket.on('connect', () => {
 
 });
    
+const UserID = async () => {
 
+    try {
+        
+        const response = await axios.get('/ActiveUserData');
+        const { user_id } = response.data;
+
+        return user_id
+        
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
 
 
 
@@ -44,26 +57,10 @@ const AddFriend = async (recipientId) => {
 
 
 
-socket.on('FriendRequestReceived', async (SenderData, SenderId) => {
+socket.on('FriendRequestReceived', async (SenderData) => {
 
            
-    if (SenderId && SenderData) {
-
-        console.log('SENDER DATA FROM SERVER', SenderData)
-       
-        const storedsenderID = localStorage.getItem('senderIdArray');
-        let SenderIdArray = [];
-
-        if (storedsenderID) {
-            
-            SenderIdArray = JSON.parse(storedsenderID);
-        }
-
-       
-        SenderIdArray.push(SenderId);
-
-        
-        localStorage.setItem('senderIdArray', JSON.stringify(SenderIdArray));
+    if (SenderData) {
 
         RenderFriendRequestUI(SenderData);
     }
@@ -118,13 +115,8 @@ function RenderFriendRequestUI(data) {
 document.addEventListener('DOMContentLoaded', async function() {
 
     try {
-         
-    const storedSenderId = localStorage.getItem('senderIdArray');
-
-   
-    if (storedSenderId) {
     
-        const response = await axios.get(`/FriendRequestList/${storedSenderId}`);
+        const response = await axios.get(`/get/FriendRequestList`);
         const { SenderData } = response.data;
 
         console.log('Mga nag Friend Request wa gi accept', SenderData)
@@ -136,8 +128,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         RenderFriendRequestList(SenderData, FriendRequest, FriendRequestContainer)
         
-
-    }
     
     } catch (error) {
         console.error(error);
@@ -156,7 +146,7 @@ const RenderFriendRequestList = (SenderData, FriendRequest, FriendRequestContain
     
     for (const data of SenderData) {
 
-        const SenderImage = data.image !== 'NoImgProvided' ? data.image : '/img/user_image.png';
+        const SenderImage = data.senderImage !== 'NoImgProvided' ? data.senderImage : '/img/user_image.png';
 
         html += `
 
@@ -165,11 +155,11 @@ const RenderFriendRequestList = (SenderData, FriendRequest, FriendRequestContain
             <h1><img src="${SenderImage}"></h1>
 
                 <div class="SenderFullName">
-                <h1>${data.fullname}</h1>
+                <h1>${data.senderName}</h1>
                 </div>
 
                 <div class="RequestBtn">
-                    <button onclick="AcceptFriendRequest('${data._id}', '${data.UserAdded}')" id="ConfirmRequest">Confirm</button>
+                    <button onclick="AcceptFriendRequest('${data.senderId}', '${data.UserAdded}')" id="ConfirmRequest">Confirm</button>
                     <button id="DeleteRequest">Delete</button>
                 </div>    
                      

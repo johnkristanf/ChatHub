@@ -12,6 +12,8 @@ export const SearchFriendController = async (request: any, response: any) => {
 
             const searchFriend = await Accounts.Search(fullname);
 
+            console.log('searchFriend', searchFriend)
+
             if(searchFriend || searchFriend === undefined){
 
                 response.status(200).send({
@@ -70,42 +72,23 @@ export const GetFriendRequestListController = async (request: any, response: any
     
         if(request.user.Authenticated()){
 
-            const { SenderId } = request.params;
-            const SenderIdArrayMap: string[] = [];
-
-            const SenderIdArray = JSON.parse(SenderId.split(','));
-
-            const matchFriendRequest: any = await AccountModel.findById(request.user.id).select('friendRequests');
+            const RecipientData: any = await AccountModel.find({ _id: request.user.id }).select('friendRequests');
 
 
-            if(matchFriendRequest){
+                if(RecipientData){
 
-                for(const data of matchFriendRequest.friendRequests){
+                    for(const data of RecipientData){
 
-                    const findMatchSenderId = SenderIdArray.find((senderId: string) => {
-                        return senderId === data.senderId;
-        
-                    });
+                        response.status(200).send({
+                            SenderData: data.friendRequests
+            
+                        });
 
-                    SenderIdArrayMap.push(findMatchSenderId);
+                    }
+                    
 
                 }
         
-        
-                    const requestData = await AccountModel.find({ _id: { $in: SenderIdArrayMap } })
-                    .select('image fullname UserAdded');
-        
-            
-                    if(requestData){
-                        response.status(200).send({
-                            SenderData: requestData
-        
-                        });
-            
-                    }   
-
-            }
-          
 
         }
         

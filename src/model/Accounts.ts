@@ -18,6 +18,11 @@ const AccountSchema = new Schema({
         default: 'NoImgProvided'
     },
 
+    imageSize:{
+        type: Number,
+        required: true,
+    },
+
     fullname: {
         type: String,
         required: true,
@@ -67,11 +72,11 @@ const AccountSchema = new Schema({
         senderName: String,
         senderImage: String,
         status: { type: String, default: 'pending' }, 
+        UserAdded: String
     }],
 
     friends: [String],
 
-    UserAdded: String,
 
 });
 

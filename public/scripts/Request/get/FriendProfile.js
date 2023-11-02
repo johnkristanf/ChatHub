@@ -1,20 +1,6 @@
 const FriendsProfileContainer = document.querySelector('#FriendsProfileContainer');
 
 
-const UserID = async () => {
-
-    try {
-        
-        const response = await axios.get('/ActiveUserData');
-        const { user_id } = response.data;
-
-        return user_id
-        
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
 
 const GetFriendProfile = async (user_id) => {
 
@@ -75,12 +61,13 @@ const RenderSearchedOwnProfileUI = (display) => {
     const Profile = document.createElement('div');
     Profile.classList.add('Profile');
 
+    const SenderImage = display.image !== 'NoImgProvided' ? `/img/userImages/${display.image}` : '/img/user_image.png';
 
     Profile.innerHTML = `
 
             <div class="ProfileHeader">
         
-                <img src="/img/user_image.png" style="width: 20%;" alt="">
+                <img src="${SenderImage}" style="width: 20%;" alt="">
                 <h1 id="ProfileFullName">${display.fullname}</h1>
                 <p>${display.username}</p>
 
@@ -90,7 +77,7 @@ const RenderSearchedOwnProfileUI = (display) => {
                          <i class="fa-brands fa-google"></i>  
                     </div>
 
-                    <button disabled id = "OwnProfileTittle"> You </button>
+                    <button disabled id = "OwnProfileTittle"><i class="fa-solid fa-user"></i> You </button>
                         
             </div>
 
@@ -152,13 +139,14 @@ const RenderSearchedUserUI = (display, FriendsProfileContainer) => {
     const Profile = document.createElement('div');
     Profile.classList.add('Profile');
 
+    const SenderImage = display.image !== 'NoImgProvided' ? `/img/userImages/${display.image}` : '/img/user_image.png';
 
     Profile.innerHTML = `
 
             <div class="ProfileHeader">
         
-                <img src="/img/user_image.png" style="width: 20%;" alt="">
-                <h1 id="ProfileFullName">${display.fullname}</h1>
+                <img src="${SenderImage}" style="width: 20%;" alt="">
+                <h1 id="ProfileFullName">${di}splay.fullname}</h1>
                 <p>${display.username}</p>
 
                     <div class="social_media">
@@ -240,7 +228,8 @@ const RenderAlreadyFriendProfile = (display) => {
 
             console.log('data of display', data)
 
-        
+            const SenderImage = display.image !== 'NoImgProvided' ? `/img/userImages/${display.image}` : '/img/user_image.png';
+
         
             html += `
     
@@ -248,7 +237,7 @@ const RenderAlreadyFriendProfile = (display) => {
 
                 <div class="ProfileHeader">
             
-                    <img src="/img/user_image.png" style="width: 20%;" alt="">
+                    <img src="${SenderImage}" style="width: 20%;" alt="">
                     <h1 id="ProfileFullName">${data.fullname}</h1>
                     <p>${data.username}</p>
     
@@ -333,12 +322,13 @@ const RenderAlreadyFriendProfile = (display) => {
     const Profile = document.createElement('div');
     Profile.classList.add('Profile');
 
+    const SenderImage = display.image !== 'NoImgProvided' ? `/img/userImages/${display.image}` : '/img/user_image.png';
     
     Profile.innerHTML = `
 
             <div class="ProfileHeader">
         
-                <img src="/img/user_image.png" style="width: 20%;" alt="">
+                <img src="${SenderImage}" style="width: 20%;" alt="">
                 <h1 id="ProfileFullName">${display.fullname}</h1>
                 <p>${display.username}</p>
 
@@ -427,11 +417,13 @@ const RenderOwnProfileUI = async () => {
 
     for(const display of FriendProfile) {
 
+        const SenderImage = display.image !== 'NoImgProvided' ? `/img/userImages/${display.image}` : '/img/user_image.png';
+
         Profile.innerHTML = `
 
         <div class="ProfileHeader">
     
-            <img src="/img/user_image.png" style="width: 20%;" alt="">
+            <img src="${SenderImage}" style="width: 20%;" alt="">
             <h1 id="ProfileFullName">${display.fullname}</h1>
             <p>${display.username}</p>
 

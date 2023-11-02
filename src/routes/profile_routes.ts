@@ -1,4 +1,6 @@
 import express from 'express';
+import multer from 'multer';
+
 
 import JWT from '../middleware/JWT';
 
@@ -13,10 +15,30 @@ import {
 } from '../controllers/ProfileController';
 
 
+
+const storage = multer.diskStorage({
+
+    destination: (req, file, cb) => {
+      cb(null, 'public/img/userImages/'); 
+
+    },
+
+    filename: (req: any, file, cb) => {
+
+        const filename = file.originalname.split('.');
+        const getFileExtension = filename[filename.length - 1];
+       
+        cb(null, `${req.user.fullname}ProfilePicture.${getFileExtension}`);
+    },
+
+});
+  
+const profileUpload = multer({ storage });
+
 const router = express.Router();
 
 
-router.put('/update/profile_picture', JWT.ValidateToken, UpdateProfilePictureController);
+router.put('/update/profile_picture', JWT.ValidateToken, profileUpload.single('ProfilePicture'), UpdateProfilePictureController);
 
 
 router.put('/update/fullname', JWT.ValidateToken, UpdateFullNameController);
@@ -32,7 +54,6 @@ router.put('/update/password', JWT.ValidateToken, UpdatePasswordController);
 
 
 router.put('/update/bday_gender', JWT.ValidateToken, UpdateBday_GenderController);
-
 
 
 

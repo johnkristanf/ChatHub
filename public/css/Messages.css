@@ -375,6 +375,7 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
+  margin-top: 170px;
 }
 
 .SenderMessage{

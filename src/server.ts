@@ -14,6 +14,8 @@ import auth_routes from './routes/auth_routes';
 import search_routes from './routes/search_routes';
 import recover_routes from './routes/recover_routes';
 import profile_routes from './routes/profile_routes';
+import messages_routes from './routes/messages_routes';
+
 
 import { FriendRequestSocket } from './middleware/socket/FriendRequest';
 import { SendMessage } from './middleware/socket/SendMessage';
@@ -53,6 +55,8 @@ app.use(auth_routes);
 app.use(search_routes);
 app.use(recover_routes);
 app.use(profile_routes);
+app.use(messages_routes);
+
 
 
 

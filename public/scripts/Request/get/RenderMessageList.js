@@ -32,7 +32,6 @@ getMessageList();
 
 const RenderMessageListUI = (friendData) => {
 
-    console.log('friendData:', friendData)
 
     const ListsContainer = document.querySelector('.ListsContainer');
 

@@ -1,6 +1,4 @@
-import { RequestTypeId } from '../../types/FriendRequestTypes';
-import { AccountModel } from '../../model/Accounts';
-
+import { MessageModel } from "../../model/Messages";
 
 export const SendMessage = (io: any) => {
 
@@ -17,26 +15,46 @@ export const SendMessage = (io: any) => {
                 });
 
             
-                socket.on('SendMessage', async (ReciverId: string, SenderID: string, messageInput: string) => {
-                        console.log('ReciverId:', ReciverId)
+                socket.on('SendMessage', async (RecieverId: string, SenderID: string, Message: string) => {
+                        console.log('ReciverId:', RecieverId)
                         console.log('SenderID:', SenderID)
-                        console.log('Message:', messageInput)
+                        console.log('Message:', typeof Message)
 
 
+                        const currentDate = new Date();
+
+                        const formattedDate = currentDate.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                
+                        });
+
+                        const MessageData = [{
+                            SenderID: SenderID,
+                            ReciverID: RecieverId,
+                            Message: Message,
+                            timeStamp: formattedDate
+
+
+                        }];
+
+
+                        await MessageModel.insertMany({ MessagesInfo: MessageData })
+
+
+                        const reciverSocket = userSockets.get(RecieverId);
+
+
+                        if(reciverSocket){
                         
+                            reciverSocket.emit('MessageRecived', SenderID, Message);
 
-                    const reciverSocket = userSockets.get(ReciverId);
 
-
-                    if(reciverSocket){
+                        } else {
                         
-                        reciverSocket.emit('MessageRecived', SenderID, messageInput);
-
-
-                    } else {
-                        
-                        console.log('Recipient is not online.');
-                    }
+                            console.log('Recipient is not online.');
+                        }
 
                 
                 });

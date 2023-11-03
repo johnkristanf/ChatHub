@@ -31,7 +31,6 @@ getFriendsList();
 
 const RenderFriendListUI = (friendData) => {
 
-    console.log('friendData:', friendData)
 
     const FriendListContainer = document.querySelector('.FriendListContainer');
 

@@ -18,11 +18,6 @@ const AccountSchema = new Schema({
         default: 'NoImgProvided'
     },
 
-    imageSize:{
-        type: Number,
-        required: true,
-    },
-
     fullname: {
         type: String,
         required: true,

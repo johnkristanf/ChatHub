@@ -41,7 +41,7 @@ const Login = () => {
             }
 
             if(LoginSuccess){
-                window.location.href = 'https://chathub-server-m2ol.onrender.com/account/messages';
+                window.location.href = '/account/messages';
 
             }
 

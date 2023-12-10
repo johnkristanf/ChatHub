@@ -55,7 +55,7 @@ router.get('/account/verify', JWT.ValidateVerificationToken, async (request: any
 
 
 
-router.get('https://chathub-server-m2ol.onrender.com/account/messages', JWT.ValidateToken, async (request: any, response) => {
+router.get('/account/messages', JWT.ValidateToken, async (request: any, response) => {
 
     try {
         

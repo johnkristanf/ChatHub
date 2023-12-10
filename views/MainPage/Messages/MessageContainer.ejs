@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <%- include(__dirname + 'messagesPartials/Head'); %>
+    <%- include('messagesPartials/Head'); %>
 
 <body>
 
@@ -9,16 +9,16 @@
     <div class="ChatHubMessagesContainer">
 
 
-        <%- include(__dirname + 'messagesPartials/Sidebar'); %>
+        <%- include('messagesPartials/Sidebar'); %>
 
-        <%- include(__dirname + 'messagesPartials/MessagesList'); %>
+        <%- include('messagesPartials/MessagesList'); %>
         
-        <%- include(__dirname + 'messagesPartials/Messages'); %>
+        <%- include('messagesPartials/Messages'); %>
 
-        <%- include(__dirname + 'messagesPartials/Profile'); %>
+        <%- include('messagesPartials/Profile'); %>
 
 
-        <%- include(__dirname + 'messagesPartials/modal/Logout'); %>
+        <%- include('messagesPartials/modal/Logout'); %>
 
 
     </div>

@@ -30,7 +30,7 @@ emitOnlineUserId();
 
 
 
-const SendMessageNavbarDiv = (ReciverImage, RecieverFullName) => {
+const SendMessageNavbarDiv = (ReciverImage, RecieverFullName, Activity) => {
 
     const MessagesNavbar = document.createElement('div');
     MessagesNavbar.classList.add('MessagesNavbar');
@@ -42,7 +42,7 @@ const SendMessageNavbarDiv = (ReciverImage, RecieverFullName) => {
 
                 <div class="Name_Online">
                     <h4>${RecieverFullName}</h4>        
-                    <h4>Online</h4>
+                    <h4>${Activity}</h4>
                 </div>
         
 
@@ -52,7 +52,7 @@ const SendMessageNavbarDiv = (ReciverImage, RecieverFullName) => {
                 <div class="NavIcons">
 
                       <i class="fa-solid fa-phone" id="Call"></i>
-                      <i class="fa-solid fa-video" id="VideoCall"></i>
+                      <a href="/video/"><i class="fa-solid fa-video" id="VideoCall"></i></a>
                       <i class="fa-solid fa-circle-info" id="ChatInfo"></i>
 
                 </div>`;
@@ -70,15 +70,7 @@ const SendMessageBodyDiv = () => {
     const sendMessageBodyDiv = document.createElement("div");
     sendMessageBodyDiv.classList.add("SendMessageBody");
 
-    const ReciverMessageContainer = document.createElement("div");
-    ReciverMessageContainer.classList.add("ReciverMessageContainer");
-
-    const SenderMessageContainer = document.createElement("div");
-    SenderMessageContainer.classList.add("SenderMessageContainer");
-
-
-    sendMessageBodyDiv.appendChild(ReciverMessageContainer);
-    sendMessageBodyDiv.appendChild(SenderMessageContainer);
+    sendMessageBodyDiv.scrollTop = sendMessageBodyDiv.scrollHeight
 
     return sendMessageBodyDiv;
 
@@ -114,40 +106,146 @@ const MessageForm = () => {
 
 }
 
+const formattedMessageDateAndTime = (timeStamp) => {
 
 
-const SenderMessageContainer = (message) => {
+    const date = new Date(timeStamp);
 
-    const SenderMessageContainer = document.querySelector('.SenderMessageContainer');
+    const options = {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true, 
+    };
 
-    const SenderMessage = document.createElement('div');
-    SenderMessage.classList.add('SenderMessage');
+    const formattedDate = date.toLocaleDateString('en-US', options);
 
-     
-    SenderMessage.textContent = message;
+    return formattedDate;
 
-    SenderMessageContainer.appendChild(SenderMessage);
+}
+
+
+const DynamicformattedMessageDateAndTime = () => {
+
+    const date = new Date();
+
+    const options = {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true, 
+    };
+
+    const formattedDate = date.toLocaleDateString('en-US', options);
+
+    return formattedDate;
 
 }
 
 
-const ReceiverMessageContainer = (message) => {
-
-    const ReciverMessageContainer = document.querySelector('.ReciverMessageContainer');
-
-    const ReciverMessage = document.createElement('div');
-    ReciverMessage.classList.add('ReciverMessage');
-
-    let html = ` 
-            <h1>Time</h1>
-
-            <p>${message}</p>`;
 
 
-        ReciverMessage.innerHTML = html;
-        ReciverMessageContainer.append(ReciverMessage);
+
+const SenderMessage = (message, timeStamp) => {
+
+    const messageDate = formattedMessageDateAndTime(timeStamp)
+    const SendMessageBody = document.querySelector('.SendMessageBody');
+
+
+    const SenderMessageDiv = document.createElement('div');
+    SenderMessageDiv.classList.add('SenderMessageDiv');
+
+
+    const messageSent = document.createElement('p');
+    messageSent.textContent = messageDate;
+
+
+    SenderMessageDiv.append(message);
+    SenderMessageDiv.append(messageSent); 
+    SendMessageBody.append(SenderMessageDiv);
+
+    if(SenderMessageDiv){
+
+        if(message.length <= 40){
+
+            SenderMessageDiv.style.width = "21%";
+        }
+
+        if(message.length >= 52){
+
+            SenderMessageDiv.style.width = "45%";
+        }
+
+
+    }
+
+    SendMessageBody.scrollTop = SendMessageBody.scrollHeight;
+}
+
+
+const RecieverMessage = (message, timeStamp) => {
+
+    const messageDate = formattedMessageDateAndTime(timeStamp)
+
+    const SendMessageBody = document.querySelector('.SendMessageBody');
+
+    const RecieverMessageDiv = document.createElement('div');
+    RecieverMessageDiv.classList.add('RecieverMessageDiv');
+
+    const messageSent = document.createElement('p');
+    messageSent.textContent = messageDate;
+
+
+    RecieverMessageDiv.append(message);
+    RecieverMessageDiv.append(messageSent); 
+    SendMessageBody.append(RecieverMessageDiv);
+
+    if(RecieverMessageDiv){
+
+        if(message.length <= 19){
+         
+            RecieverMessageDiv.style.width = "21%";
+        }
+
+        if(message.length >= 52){
+         
+            RecieverMessageDiv.style.width = "40%";
+        }
+
+
+    }
+
+    SendMessageBody.scrollTop = SendMessageBody.scrollHeight;
 
 }
+
+const NotifyUnreadMessages = async (messages) => {
+
+    const user_id = await UserID();
+
+
+    const unreadMessages = messages.filter((message) => message.MessageStatus === 'Unread');
+
+    console.log('unreadMessages', unreadMessages)
+
+
+    for(const data of unreadMessages){
+
+        const { MessagesInfo } = data;
+
+
+        const message = MessagesInfo.find((data) => data.ReciverID === user_id || data.SenderID === user_id);
+
+
+        SendNotifToReciever(data.MessagesInfo[0].SenderID, data.MessagesInfo[0].ReciverID)
+        ReciverIsOnline(data._id, data.MessagesInfo[0].ReciverID);
+
+    }
+
+}
+
 
 
 const RenderMessageFromDB = async (FriendId) => {
@@ -160,41 +258,34 @@ const RenderMessageFromDB = async (FriendId) => {
 
         const { messages } = response.data;
 
+        NotifyUnreadMessages(messages);
+
 
             for(const data of messages){
 
                 const { MessagesInfo } = data;
 
-
+                
                 const message = MessagesInfo.find((data) => data.ReciverID === user_id || data.SenderID === user_id);
-
-        
-                console.log('Message data:', message);
-
-
 
                     if(message){
 
-                      
+                       
                         if(FriendId === message.SenderID){
+                            RecieverMessage(message.Message, message.timeStamp);
 
-                            ReceiverMessageContainer(message.Message);
-        
-                        }
-        
 
-                        console.log('Receiver.ReciverID:', message.ReciverID);
-                      
+                        }                      
 
         
                         if(FriendId === message.ReciverID){
         
-                            SenderMessageContainer(message.Message);
+                            SenderMessage(message.Message, message.timeStamp);
+                           
+
                         }
 
                     }
-
-                    console.log('user_id', user_id)
                
 
             }
@@ -209,14 +300,108 @@ const RenderMessageFromDB = async (FriendId) => {
 }
 
 
+const FetchFriendData = async (FriendID) => {
+
+    const response = await axios.get(`/get/profile/${FriendID}`);
+    const { FriendProfile } = response.data;
+
+    return FriendProfile;
 
 
+}
 
 
-const SendMessage = (ReciverImage, RecieverFullName, RecieverId) => {
+const RenderAlreadyFriendProfile = async (FriendID) => {
+
+    const FriendProfile = await FetchFriendData(FriendID)
+       
+
+    const FriendsProfileContainer = document.querySelector('#ProfileContainer');
+
+    const Profile = document.createElement('div');
+    Profile.classList.add('Profile');
+
+
+    for(const display of FriendProfile){
+
+    const SenderImage = display.image !== 'NoImgProvided' ? `/img/userImages/${display.image}` : '/img/user_image.png';
     
-        console.log('ReciverId:', RecieverId)
+    Profile.innerHTML = `
 
+            <div class="ProfileHeader">
+        
+                <img src="${SenderImage}" style="width: 20%;" alt="">
+                <h1 id="ProfileFullName">${display.fullname}</h1>
+                <p>${display.username}</p>
+
+                    <div class="social_media">
+                         <i class="fa-brands fa-facebook"></i> 
+                         <i class="fa-brands fa-x-twitter"></i>
+                         <i class="fa-brands fa-google"></i>  
+                    </div>
+
+
+                    <button disabled id = "FriendTittle"><i class="fa-solid fa-user-check"></i> Friends </button>
+                        
+            </div>
+
+
+                <div class="ProfileFooter">
+
+                    <div class="ProfileInfo_container">
+
+                        <ul>
+                            <li>
+                                <div class="Email">
+                                   
+                                    <h2>${display.email}</h2>
+                                   
+                                </div>
+
+                            </li>
+
+                            <li>
+                                <div class="Birthday">
+                                   
+                                    <h2>${display.birthday}</h2>
+                                    
+                                </div>
+
+                            </li>
+
+                            <li>
+
+                                <div class="Gender">
+                                   
+                                    <h2>${display.gender}</h2>
+                                  
+                                </div>
+                
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div> `; 
+
+    }
+
+            FriendsProfileContainer.appendChild(Profile);
+
+
+            if(FriendsProfileContainer.children.length === 2) {
+                FriendsProfileContainer.removeChild(FriendsProfileContainer.children[0]);
+            }
+            
+}
+
+
+
+
+
+const SendMessage = (ReciverImage, RecieverFullName, RecieverId, Activity) => {
+    
         const Messages = document.querySelector('#Messages');
 
         const MessageUIcontainer = document.createElement('div');
@@ -224,7 +409,7 @@ const SendMessage = (ReciverImage, RecieverFullName, RecieverId) => {
 
       
 
-        const SendMessageNavbar = SendMessageNavbarDiv(ReciverImage, RecieverFullName);
+        const SendMessageNavbar = SendMessageNavbarDiv(ReciverImage, RecieverFullName, Activity);
         const SendMessageBody = SendMessageBodyDiv(); 
         const MessageFormInput = MessageForm();   
 
@@ -238,7 +423,7 @@ const SendMessage = (ReciverImage, RecieverFullName, RecieverId) => {
 
 
         removeOverflowingMessageBodyDiv(Messages);
-
+        RenderAlreadyFriendProfile(RecieverId)
 
 
         MessageFormInput.addEventListener('submit', async (e) => {
@@ -250,20 +435,23 @@ const SendMessage = (ReciverImage, RecieverFullName, RecieverId) => {
 
             const Message = formdata.get('Message');
 
-            SenderMessageContainer(Message);
 
-            console.log('message:', Message)
-
+            SenderMessage(Message, DynamicformattedMessageDateAndTime());
 
 
             const SendMessageSuccess = socket.emit('SendMessage', RecieverId, SenderID, Message);
 
             if(SendMessageSuccess) MessageFormInput.reset(); 
 
+         
+
 
         });
 
+
+
         RenderMessageFromDB(RecieverId);
+       
            
 }
 
@@ -282,12 +470,95 @@ const removeOverflowingMessageBodyDiv = (Messages) => {
 
 
 
-socket.on('MessageRecived', (SenderID, messageInput) => {
 
-    ReceiverMessageContainer(messageInput);
+socket.on('MessageRecived', async (SenderID, messages) => {
 
+    const user_id = await UserID();
+
+
+    for(const data of messages){
+
+        const { MessagesInfo } = data;
+
+
+        const message = MessagesInfo.find((data) => data.ReciverID === user_id || data.SenderID === user_id);
+
+            if(message){
+
+              
+                if(SenderID === message.SenderID){
+                    RecieverMessage(message.Message, message.timeStamp);
+
+                }                      
+
+
+                if(SenderID === message.ReciverID){
+
+                    SenderMessage(message.Message, message.timeStamp);
+                }
+
+            }
+       
+
+    }
 
 });
+
+
+const SendNotifToReciever = (SenderID, RecieverId) => {
+
+    socket.emit('SendNotif', SenderID, RecieverId);
+    
+}
+
+
+socket.on('Notify', (SenderData, NumberOfMessages) => {
+
+    console.log('SenderData', SenderData)
+
+    const SenderImage = SenderData.image !== 'NoImgProvided' ? `/img/userImages/${SenderData.image}` : '/img/user_image.png';
+
+    const ChatHubMessagesContainer = document.querySelector('.ChatHubMessagesContainer');
+    const MessageNotify = document.createElement('div')
+    MessageNotify.classList.add('MessageNotify');
+
+   let html = '';
+
+
+   html += `
+            <div class="SenderName-NumMessages">
+                <h1>${SenderData.fullname}</h1>
+                <h1>${NumberOfMessages} new Messages</h1>
+            </div>
+
+
+            <div class="SenderImage">
+                <img src="${SenderImage}" alt="">
+
+            </div>`;
+
+
+    MessageNotify.innerHTML = html;
+    ChatHubMessagesContainer.append(MessageNotify);
+
+    setTimeout(() => {
+        MessageNotify.remove(); 
+    }, 3000); 
+
+});
+
+
+const ReciverIsOnline = async (MessageId, RecieverId) => {
+
+    console.log('MessageId', MessageId)
+    console.log('RecieverId', RecieverId)
+
+
+    if(RecieverId === await UserID()){
+        socket.emit('ReciverIsOnline', MessageId)
+    }
+    
+}
 
 
 

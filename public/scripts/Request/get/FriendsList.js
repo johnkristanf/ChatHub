@@ -41,6 +41,8 @@ const RenderFriendListUI = (friendData) => {
     
     for (const data of friendData) {
 
+        console.log(data)
+
         const SenderImage = data.image !== 'NoImgProvided' ? `/img/userImages/${data.image}` : '/img/user_image.png';
 
         html += `
@@ -56,7 +58,7 @@ const RenderFriendListUI = (friendData) => {
                 <div class="RequestBtn">
                     <button style="display: flex; align-items: center; gap: 7px;" id = "MessageBtn"><i class="fa-solid fa-user"></i> Profile </button>
 
-                    <button style="display: flex; align-items: center; gap: 7px;"  id = "UnfriendBtn"><i class="fa-solid fa-user-xmark"></i> Unfriend</button>
+                    <button onclick="Unfriend('${data._id}', '${data.fullname}')" style="display: flex; align-items: center; gap: 7px;"  id = "UnfriendBtn"><i class="fa-solid fa-user-xmark"></i> Unfriend</button>
                 </div>    
                      
         </div>`;
@@ -70,7 +72,39 @@ const RenderFriendListUI = (friendData) => {
     }
 
    
+}
 
+
+const Unfriend = async (friend_id, friend_fullname) => {
+
+    try {
+
+        alertify.confirm('Unfriend', `Are you sure you want to unfriend ${friend_fullname}`, 
+
+            async function(){ 
+
+                try {
+                   const response = await axios.put(`/unfriend/${friend_id}`);
+
+                   if(response) window.location.href = '/account/connect';
+
+                } catch (error) {
+                    console.error(error);
+                    throw error
+                }
+              
+            }
+
+            ,function(){ 
+            }
+        );
+
+       
+        
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 
 }
 

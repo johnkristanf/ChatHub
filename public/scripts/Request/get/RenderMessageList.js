@@ -45,13 +45,14 @@ const RenderMessageListUI = (friendData) => {
     for (const data of friendData) {
 
       
+        console.log('data sa kwaan nkog status', data)
 
         const Image = data.image !== 'NoImgProvided' ? `/img/userImages/${data.image}` : '/img/user_image.png';
 
 
         html += `
 
-                <div class="Lists" onclick="SendMessage('${Image}', '${data.fullname}', '${data._id}')">
+                <div class="Lists" onclick="SendMessage('${Image}', '${data.fullname}', '${data._id}', '${data.activity}')">
 
                     <img src="${Image}">
 

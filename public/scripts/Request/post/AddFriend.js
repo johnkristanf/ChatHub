@@ -61,8 +61,8 @@ socket.on('FriendRequestReceived', async (SenderData) => {
 
            
     if (SenderData) {
-
         RenderFriendRequestUI(SenderData);
+
     }
 
   
@@ -179,7 +179,28 @@ const AcceptFriendRequest = async (senderId, recipientId) => {
 
     try {
 
-        socket.emit('AcceptFriendRequest', senderId, recipientId);
+        alertify.confirm('Accept Friend Request', `Are you sure you want to accept friend request`, 
+
+            async function(){ 
+
+                try {
+                    socket.emit('AcceptFriendRequest', senderId, recipientId);
+
+                    window.location.href = '/account/connect'
+
+                } catch (error) {
+                    console.error(error);
+                    throw error
+                }
+          
+            }
+
+            ,function(){ 
+            }
+        );
+
+
+        
         
     } catch (error) {
         console.error(error);

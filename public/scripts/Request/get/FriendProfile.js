@@ -146,7 +146,7 @@ const RenderSearchedUserUI = (display, FriendsProfileContainer) => {
             <div class="ProfileHeader">
         
                 <img src="${SenderImage}" style="width: 20%;" alt="">
-                <h1 id="ProfileFullName">${di}splay.fullname}</h1>
+                <h1 id="ProfileFullName">${display.fullname}</h1>
                 <p>${display.username}</p>
 
                     <div class="social_media">
@@ -212,111 +212,6 @@ const RenderSearchedUserUI = (display, FriendsProfileContainer) => {
 
 
 const RenderAlreadyFriendProfile = (display) => {
-
-    console.log('display data sdfsdffrom friendlist',display)
-
-    if(Array.isArray(display)){
-
-
-        const Profile = document.createElement('div');
-        Profile.classList.add('Profile');
-       
-        let html = ''
-    
-    
-        for(const data of display){
-
-            console.log('data of display', data)
-
-            const SenderImage = display.image !== 'NoImgProvided' ? `/img/userImages/${display.image}` : '/img/user_image.png';
-
-        
-            html += `
-    
-            <div class="ContainerProfile">
-
-                <div class="ProfileHeader">
-            
-                    <img src="${SenderImage}" style="width: 20%;" alt="">
-                    <h1 id="ProfileFullName">${data.fullname}</h1>
-                    <p>${data.username}</p>
-    
-                        <div class="social_media">
-                             <i class="fa-brands fa-facebook"></i> 
-                             <i class="fa-brands fa-x-twitter"></i>
-                             <i class="fa-brands fa-google"></i>  
-                        </div>
-    
-    
-                        <button disabled id = "FriendTittle"><i class="fa-solid fa-user-check"></i> Friends </button>
-                            
-                </div>
-    
-    
-                    <div class="ProfileFooter">
-    
-                        <div class="ProfileInfo_container">
-    
-                            <ul>
-                                <li>
-                                    <div class="Email">
-                                        <h1>Email:</h1>
-                                        <h2>${data.email}</h2>
-                                        <i class="fa-solid fa-envelope"></i>
-                                    </div>
-    
-                                </li>
-    
-                                <li>
-                                    <div class="Birthday">
-                                        <h1>Birthday:</h1>
-                                        <h2>${data.birthday}</h2>
-                                        <i class="fa-solid fa-calendar"></i>
-                                    </div>
-    
-                                </li>
-    
-                                <li>
-    
-                                    <div class="Gender">
-                                        <h1>Gender:</h1>
-                                        <h2>${data.gender}</h2>
-                                        <i class="fa-solid fa-mars-and-venus"></i>
-                                    </div>
-                    
-                                </li>
-    
-                            </ul>
-    
-                        </div>
-    
-                    </div>
-                    
-                </div>`; 
-    
-        }
-
-        Profile.innerHTML = html;
-        FriendsProfileContainer.appendChild(Profile);
-
-        
-                
-    
-                if(FriendsProfileContainer.children.length === 2) {
-
-                    if(Profile.children.length === 2){
-                        Profile.removeChild(Profile.children[0]);
-                    }
-
-                    FriendsProfileContainer.removeChild(FriendsProfileContainer.children[0]);
-                }
-
-        
-      
-    
-
-            return;
-    }    
 
 
     const Profile = document.createElement('div');

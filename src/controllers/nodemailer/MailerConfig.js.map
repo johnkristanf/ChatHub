@@ -1,0 +1,1 @@
+{"version":3,"file":"MailerConfig.js","sourceRoot":"","sources":["MailerConfig.ts"],"names":[],"mappings":";;;;;;AAAA,4DAAoC;AAEvB,QAAA,WAAW,GAAG,oBAAU,CAAC,eAAe,CAAC;IAClD,OAAO,EAAE,OAAO;IAChB,IAAI,EAAE,WAAW;IACjB,IAAI,EAAE,GAAG;IACT,MAAM,EAAE,IAAI;IAEZ,IAAI,EAAE;QACJ,IAAI,EAAE,yBAAyB;QAC/B,IAAI,EAAE,qBAAqB;KAE5B;CACJ,CAAC,CAAC"}
